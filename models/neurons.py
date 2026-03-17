@@ -7,3 +7,5 @@ from spikingjelly.activation_based import neuron
 from spikingjelly.activation_based import surrogate
 import torch.nn.functional as F
 import random
+
+# Basic LIF node
