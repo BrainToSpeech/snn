@@ -1,1 +1,1 @@
-# snn
+# Phoneme-Level Decoding Using Spiking Neural Networks
