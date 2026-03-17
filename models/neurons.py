@@ -30,4 +30,6 @@ class LTLIFNode(neuron.ParametricLIFNode):
         self.spike_rate = None
     
     def forward(self, x):
-        pass
+        out = super().forward(x)
+        self.spike_rate = out.detach().float().mean()
+        return out
