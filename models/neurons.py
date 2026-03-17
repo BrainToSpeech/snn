@@ -1,7 +1,7 @@
 # This file contains different versions of tested neuron models
+# We use spikingjelly (Fang et al., 2023) for all SNN applications
 
-import torch
-import torch.nn as nn
+from spikingjelly.activation_based import neuron
 
 class LTLIFNode(neuron.ParametricLIFNode):
     '''
