@@ -79,6 +79,7 @@ class SpikingNeuralNet(nn.Module):
             ),
         )
 
+        # Using residual spiking block
         self.snn_core = nn.Identity()
 
         self.classifier = layer.Linear(hidden_size, setup.output_size, step_mode="m")
