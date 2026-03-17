@@ -34,6 +34,8 @@ class CausalTCNBlock(nn.Module):
         x = self.drop(x)
         x = x.permute(2, 0, 1).contiguous()
         return x + x0
+    
+
 
 class SpikingNeuralNet(nn.Module):
     """
@@ -56,7 +58,26 @@ class SpikingNeuralNet(nn.Module):
 
         self.input_proj = nn.Linear(setup.input_size, hidden_size)
 
-        self.temporal = nn.Identity()
+        self.temporal = nn.Sequential(
+            CausalTCNBlock(
+                channels=hidden_size,
+                kernel_size=setup.tcn.kernel_size,
+                dilation=setup.tcn.dilations[0],
+                p_drop=setup.tcn.p_drop,
+            ),
+            CausalTCNBlock(
+                channels=hidden_size,
+                kernel_size=setup.tcn.kernel_size,
+                dilation=setup.tcn.dilations[1],
+                p_drop=setup.tcn.p_drop,
+            ),
+            CausalTCNBlock(
+                channels=hidden_size,
+                kernel_size=setup.tcn.kernel_size,
+                dilation=setup.tcn.dilations[2],
+                p_drop=setup.tcn.p_drop,
+            ),
+        )
 
         self.snn_core = nn.Identity()
 
