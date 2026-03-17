@@ -1,7 +1,7 @@
 # This file contains the Spiking Model and all relevant modules
 # We use spikingjelly (Fang et al., 2023) for all SNN applications
 
-from spikingjelly.activation_based import surrogate
+from spikingjelly.activation_based import layer, surrogate
 from torch import nn
 
 def pick_surrogate(surrogate_name: str):
@@ -21,4 +21,23 @@ class SpikingNeuralNet(nn.Module):
       -> linear classifier
 
     """
-    pass
+    def __init__(self, cfg):
+        super().__init__()
+
+        setup = cfg.model.setup
+        self._step = 0
+
+        hidden_size = setup.hidden_size
+
+        self.input_proj = nn.Linear(setup.input_size, hidden_size)
+
+        self.temporal = nn.Identity()
+
+        self.snn_core = nn.Identity()
+
+        self.classifier = layer.Linear(hidden_size, setup.output_size, step_mode="m")
+
+        print(
+            "[SNN] blocks:",
+            ["input_proj", "temporal_tcn", f"snn_core_x{setup.snn_core.n_blocks}", "classifier"],
+        )
