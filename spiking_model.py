@@ -11,4 +11,14 @@ def pick_surrogate(surrogate_name: str):
         return surrogate.Sigmoid()
     
 class SpikingNeuralNet(nn.Module):
+    """
+    Proposed hybrid architecture:
+
+    Input (T, B, input_size)
+      -> Linear projection to hidden_size
+      -> causal TCN stack
+      -> compact residual SNN core
+      -> linear classifier
+
+    """
     pass
