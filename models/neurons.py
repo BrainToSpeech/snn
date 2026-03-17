@@ -28,3 +28,6 @@ class LTLIFNode(neuron.ParametricLIFNode):
             decay_input=decay_input,
         )
         self.spike_rate = None
+    
+    def forward(self, x):
+        pass
