@@ -1,1 +1,1 @@
-# This file contains different versions of neuron models
+# This file contains different versions of tested neuron models
