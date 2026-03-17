@@ -9,3 +9,5 @@ import torch.nn.functional as F
 import random
 
 # Basic LIF node
+class LTLIFNode(neuron.ParametricLIFNode):
+    pass
