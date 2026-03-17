@@ -35,7 +35,8 @@ class CausalTCNBlock(nn.Module):
         x = x.permute(2, 0, 1).contiguous()
         return x + x0
     
-
+class ResidualSNNBlock(nn.Module):
+    pass
 
 class SpikingNeuralNet(nn.Module):
     """
