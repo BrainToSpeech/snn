@@ -10,6 +10,9 @@ def pick_surrogate(surrogate_name: str):
     elif surrogate_name == "sigmoid":
         return surrogate.Sigmoid()
     
+class CausalTCNBlock(nn.Module):
+    pass
+    
 class SpikingNeuralNet(nn.Module):
     """
     Proposed hybrid architecture:
