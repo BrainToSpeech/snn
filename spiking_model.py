@@ -11,8 +11,30 @@ def pick_surrogate(surrogate_name: str):
         return surrogate.Sigmoid()
     
 class CausalTCNBlock(nn.Module):
-    pass
-    
+    def __init__(
+        self,
+        channels: int,
+        kernel_size: int = 3,
+        dilation: int = 1,
+        p_drop: float = 0.1,
+    ):
+        super().__init__()
+        pad = (kernel_size - 1) * dilation
+        self.pad = pad
+        self.conv = nn.Conv1d(channels, channels, kernel_size, dilation=dilation)
+        self.act = nn.GELU()
+        self.drop = nn.Dropout(p_drop)
+
+    def forward(self, x):
+        x0 = x
+        x = x.permute(1, 2, 0).contiguous()
+        x = nn.functional.pad(x, (self.pad, 0))
+        x = self.conv(x)
+        x = self.act(x)
+        x = self.drop(x)
+        x = x.permute(2, 0, 1).contiguous()
+        return x + x0
+
 class SpikingNeuralNet(nn.Module):
     """
     Proposed hybrid architecture:
